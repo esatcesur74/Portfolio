@@ -1,44 +1,47 @@
 import type { PortfolioData } from "@/types";
 
 const portfolio: PortfolioData = {
-  name: "Your Name",
-  title: "Computer Science Student & Developer",
-  tagline: "I build clean, thoughtful web experiences.",
+  name: "Siar Esat Cesur",
+  title: "Student & Entrepreneur",
+  tagline: "I build things that matter.",
   bio: [
-    "Hi! I'm a passionate computer science student with a love for building things on the web. I enjoy turning complex problems into simple, elegant solutions.",
-    "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sipping coffee while reading tech blogs. I'm always looking for opportunities to grow and collaborate.",
+    "I'm Siar — a student and entrepreneur with a passion for building products from scratch. I love turning ideas into real, working things.",
+    "Whether it's a web app, a business idea, or a side project, I'm always working on something. Currently focused on sharpening my development skills and launching projects that solve real problems.",
   ],
-  email: "hello@yourname.com",
-  github: "https://github.com/yourusername",
-  linkedin: "https://linkedin.com/in/yourusername",
+  email: "hello@siaresatcesur.com",
+  github: "https://github.com/esatcesur74",
+  linkedin: "https://linkedin.com/in/siaresatcesur",
 
   projects: [
     {
       id: 1,
-      title: "Study Planner App",
-      description:
-        "A productivity tool for organizing coursework, deadlines, and study sessions with a clean drag-and-drop interface.",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma"],
+      title: "Project One",
+      description: "Short description of what this project does and the problem it solves.",
+      tags: ["Next.js", "TypeScript", "Tailwind CSS"],
       liveUrl: "https://example.com",
-      githubUrl: "https://github.com/yourusername/study-planner",
+      githubUrl: "https://github.com/esatcesur74/project-one",
+      color: "#FFF700",
+      textColor: "#111111",
     },
     {
       id: 2,
-      title: "Weather Dashboard",
-      description:
-        "A real-time weather app that displays forecasts, radar maps, and historical data using the OpenWeather API.",
-      tags: ["React", "TypeScript", "Chart.js", "OpenWeather API"],
+      title: "Project Two",
+      description: "Short description of what this project does and the problem it solves.",
+      tags: ["React", "Node.js", "PostgreSQL"],
       liveUrl: "https://example.com",
-      githubUrl: "https://github.com/yourusername/weather-dashboard",
+      githubUrl: "https://github.com/esatcesur74/project-two",
+      color: "#FF6767",
+      textColor: "#111111",
     },
     {
       id: 3,
-      title: "E-Commerce Store",
-      description:
-        "A full-stack online store with product listings, cart functionality, and Stripe payment integration.",
-      tags: ["Next.js", "Stripe", "PostgreSQL", "Tailwind CSS"],
+      title: "Project Three",
+      description: "Short description of what this project does and the problem it solves.",
+      tags: ["Python", "API", "Automation"],
       liveUrl: "https://example.com",
-      githubUrl: "https://github.com/yourusername/ecommerce-store",
+      githubUrl: "https://github.com/esatcesur74/project-three",
+      color: "#67FF67",
+      textColor: "#111111",
     },
   ],
 
@@ -49,11 +52,11 @@ const portfolio: PortfolioData = {
     },
     {
       category: "Frameworks & Libraries",
-      skills: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "Node.js"],
+      skills: ["Next.js", "React", "Tailwind CSS", "Node.js"],
     },
     {
       category: "Tools & Platforms",
-      skills: ["Git", "GitHub", "VS Code", "Figma", "Vercel", "PostgreSQL"],
+      skills: ["Git", "GitHub", "Figma", "Vercel"],
     },
   ],
 };

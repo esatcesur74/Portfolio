@@ -12,15 +12,15 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const YELLOW = "#ffed29";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -28,24 +28,18 @@ export default function Navbar() {
   useEffect(() => {
     const sectionIds = navLinks.map((l) => l.href.slice(1));
     const observers: IntersectionObserver[] = [];
-
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
         { rootMargin: "-40% 0px -55% 0px" }
       );
       observer.observe(el);
       observers.push(observer);
     });
-
     return () => observers.forEach((o) => o.disconnect());
   }, []);
-
-  const handleLinkClick = () => setMenuOpen(false);
 
   return (
     <header
@@ -56,13 +50,13 @@ export default function Navbar() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo / Name */}
+        {/* Logo */}
         <a
           href="#"
-          className="text-lg font-bold text-gray-900 hover:text-blue-500 transition-colors duration-200"
+          className="text-lg font-bold text-gray-900 transition-colors duration-200"
         >
           {portfolio.name.split(" ")[0]}
-          <span className="text-blue-500">.</span>
+          <span style={{ color: YELLOW }}>.</span>
         </a>
 
         {/* Desktop links */}
@@ -73,15 +67,20 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`relative text-sm font-medium transition-colors duration-200 group ${
-                    isActive ? "text-blue-500" : "text-gray-600 hover:text-gray-900"
-                  }`}
+                  className="relative text-sm font-medium transition-colors duration-200 group text-gray-600 hover:text-gray-900"
                 >
                   {link.label}
+                  {/* Yellow underline — active or hover */}
                   <span
-                    className={`absolute -bottom-1 left-0 h-0.5 bg-blue-500 transition-all duration-300 ${
-                      isActive ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
+                    className="absolute -bottom-1 left-0 h-0.5 transition-all duration-300"
+                    style={{
+                      backgroundColor: YELLOW,
+                      width: isActive ? "100%" : "0%",
+                    }}
+                  />
+                  <span
+                    className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300"
+                    style={{ backgroundColor: YELLOW }}
                   />
                 </a>
               </li>
@@ -114,8 +113,8 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={handleLinkClick}
-                    className="block text-base font-medium text-gray-700 hover:text-blue-500 transition-colors py-1"
+                    onClick={() => setMenuOpen(false)}
+                    className="block text-base font-medium text-gray-700 hover:text-gray-900 transition-colors py-1"
                   >
                     {link.label}
                   </a>
