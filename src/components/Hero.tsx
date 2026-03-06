@@ -6,12 +6,12 @@ import PixelGrid from "./PixelGrid";
 import { useTypewriter } from "@/hooks/useTypewriter";
 
 const GREETINGS = [
-  "Hi, I'm",
-  "Merhaba, ben",
-  "Bonjour, je suis",
-  "Hola, soy",
-  "Ciao, sono",
-  "Hallo, ich bin",
+  "hi, i'm",
+  "merhaba, ben",
+  "bonjour, je suis",
+  "hola, soy",
+  "ciao, sono",
+  "hallo, ich bin",
 ];
 
 export default function Hero() {
@@ -38,24 +38,40 @@ export default function Hero() {
           <span style={{ color: "#ffed29" }} className="animate-pulse font-black">|</span>
         </motion.p>
 
-        <div style={{ mixBlendMode: "difference" }}>
+        <div className="relative">
+          <div style={{ mixBlendMode: "difference" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            >
+              <h1
+                className="font-normal lowercase leading-none tracking-tighter select-none"
+                style={{ fontSize: "clamp(2.5rem, 7vw, 8rem)", color: "#ffffff" }}
+              >
+                esat
+              </h1>
+            </motion.div>
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="hidden md:flex flex-col items-end gap-1 absolute bottom-0 right-0"
           >
-            <h1
-              className="font-black uppercase leading-none tracking-tighter select-none"
-              style={{ fontSize: "clamp(3.5rem, 10vw, 11rem)", color: "#ffffff" }}
+            <span
+              className="font-medium tracking-widest select-none"
+              style={{ fontSize: "clamp(0.85rem, 1.2vw, 1.1rem)", color: "#111111" }}
             >
-              Siar Esat
-            </h1>
-            <h1
-              className="font-black uppercase leading-none tracking-tighter select-none"
-              style={{ fontSize: "clamp(3.5rem, 10vw, 11rem)", color: "#ffffff" }}
+              norway · oslo
+            </span>
+            <span
+              className="font-medium tracking-widest select-none"
+              style={{ fontSize: "clamp(0.85rem, 1.2vw, 1.1rem)", color: "#111111", opacity: 0.5 }}
             >
-              Cesur
-            </h1>
+              2026
+            </span>
           </motion.div>
         </div>
 
@@ -77,7 +93,7 @@ export default function Hero() {
           className="font-medium tracking-wide text-gray-700"
           style={{ fontSize: "clamp(1rem, 2vw, 1.75rem)" }}
         >
-          Developer · Student
+          developer · student
         </motion.p>
       </div>
 

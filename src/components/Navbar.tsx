@@ -6,10 +6,10 @@ import portfolio from "@/data/portfolio";
 import PixelTransition from "./PixelTransition";
 
 const navLinks = [
-  { label: "About",    href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills",   href: "#skills" },
-  { label: "Contact",  href: "#contact" },
+  { label: "About",    href: "#about",    color: "#93c5fd" },
+  { label: "Projects", href: "#projects", color: "#86efac" },
+  { label: "Skills",   href: "#skills",   color: "#f5f5f5" },
+  { label: "Contact",  href: "#contact",  color: "#c4b5fd" },
 ];
 
 const YELLOW = "#ffed29";
@@ -30,10 +30,14 @@ const linkVariants = {
 function SlideLink({
   index,
   label,
+  href,
+  color,
   onClick,
 }: {
   index: number;
   label: string;
+  href: string;
+  color: string;
   onClick: () => void;
 }) {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -62,6 +66,7 @@ function SlideLink({
 
   return (
     <div
+      data-cursor="view"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       style={{
@@ -75,27 +80,26 @@ function SlideLink({
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: YELLOW,
+          backgroundColor: color,
           transform: "translateY(101%)",
           zIndex: 0,
           pointerEvents: "none",
         }}
       />
 
-      <button
-        onClick={onClick}
+      <a
+        href={href}
+        onClick={(e) => { e.preventDefault(); onClick(); }}
         style={{
           position: "relative",
           zIndex: 1,
-          background: "none",
-          border: "none",
-          cursor: "pointer",
           display: "flex",
           alignItems: "baseline",
           gap: "clamp(0.5rem, 2vw, 1.5rem)",
           padding: "0.15em 0",
           width: "100%",
-          textAlign: "left",
+          textDecoration: "none",
+          cursor: "pointer",
         }}
       >
         <span
@@ -122,7 +126,7 @@ function SlideLink({
         >
           {label}
         </span>
-      </button>
+      </a>
     </div>
   );
 }
@@ -146,7 +150,7 @@ export default function Navbar() {
     setMenuOpen(false);
     setTimeout(() => {
       document.getElementById(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
-    }, 350);
+    }, 600);
   };
 
   return (
@@ -157,7 +161,6 @@ export default function Navbar() {
           style={{
             backgroundColor: menuOpen ? "transparent" : scrolled ? "rgba(255,255,255,0.92)" : "transparent",
             backdropFilter: !menuOpen && scrolled ? "blur(8px)" : "none",
-            borderBottom: !menuOpen && scrolled ? "1px solid #f3f4f6" : "none",
             transition: "background-color 0.3s, border-bottom 0.3s",
           }}
         >
@@ -208,6 +211,8 @@ export default function Navbar() {
                     <SlideLink
                       index={i}
                       label={link.label}
+                      href={link.href}
+                      color={link.color}
                       onClick={() => handleNavClick(link.href)}
                     />
                   </motion.div>

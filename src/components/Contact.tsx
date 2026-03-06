@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useCallback, ReactNode } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import portfolio from "@/data/portfolio";
 import {
   fadeUpVariants,
@@ -10,140 +10,101 @@ import {
   viewportOptions,
 } from "@/hooks/useScrollAnimation";
 
-const links = [
-  {
-    label: "Email",
-    href: `mailto:${portfolio.email}`,
-    icon: <Mail size={18} />,
-    value: portfolio.email,
-    revealColor: "#ffed29",
-  },
-  {
-    label: "GitHub",
-    href: portfolio.github,
-    icon: <Github size={18} />,
-    value: "@esatcesur74",
-    revealColor: "#fff176",
-  },
-  {
-    label: "LinkedIn",
-    href: portfolio.linkedin,
-    icon: <Linkedin size={18} />,
-    value: "Siar Esat Cesur",
-    revealColor: "#fffde7",
-  },
+const disperseTransforms = [
+  { x: -0.8, y: -0.6, r: -29 }, { x: -0.2, y: -0.4, r: -6 },
+  { x: 0.3,  y: -0.7, r: 15  }, { x: 0.7,  y: -0.3, r: 22  },
+  { x: 0.5,  y: 0.5,  r: -18 }, { x: -0.5, y: 0.4,  r: 8   },
+  { x: -0.6, y: -0.8, r: -35 }, { x: 0.2,  y: 0.6,  r: 12  },
+  { x: 0.9,  y: -0.5, r: -20 }, { x: -0.3, y: 0.8,  r: 30  },
+  { x: 0.6,  y: 0.3,  r: -10 }, { x: -0.7, y: -0.2, r: 18  },
+  { x: 0.4,  y: -0.9, r: -25 }, { x: -0.9, y: 0.6,  r: 5   },
+  { x: 0.1,  y: 0.9,  r: -40 }, { x: -0.4, y: -0.5, r: 28  },
+  { x: 0.8,  y: 0.2,  r: -15 }, { x: -0.1, y: 0.7,  r: 35  },
+  { x: 0.3,  y: -0.3, r: -8  }, { x: -0.8, y: 0.1,  r: 20  },
+  { x: 0.5,  y: -0.8, r: -32 }, { x: -0.2, y: 0.3,  r: 10  },
 ];
 
-interface PaintLinkProps {
-  href: string;
-  external?: boolean;
-  revealColor: string;
-  children: ReactNode;
+function DisperseChars({ text, isHovered, offset = 0 }: { text: string; isHovered: boolean; offset?: number }) {
+  return (
+    <>
+      {text.split("").map((char, i) => {
+        const t = disperseTransforms[(i + offset) % disperseTransforms.length];
+        return (
+          <motion.span
+            key={i}
+            animate={
+              isHovered
+                ? { x: t.x * 200, y: t.y * 100, rotateZ: t.r, opacity: 0 }
+                : { x: 0, y: 0, rotateZ: 0, opacity: 1 }
+            }
+            transition={{ duration: 0.75, ease: [0.33, 1, 0.68, 1] }}
+            style={{ display: "inline-block" }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        );
+      })}
+    </>
+  );
 }
 
-function PaintLink({ href, external, revealColor, children }: PaintLinkProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const prevPos = useRef<{ x: number; y: number } | null>(null);
-  const ready = useRef(false);
+function DisperseHeading() {
+  const [isHovered, setIsHovered] = useState(false);
+  const line1 = "Let's build";
+  const line2 = "something.";
+  return (
+    <h2
+      className="text-4xl md:text-6xl font-black tracking-tight text-gray-900 leading-tight cursor-default select-none"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <DisperseChars text={line1} isHovered={isHovered} offset={0} />
+      <br />
+      <DisperseChars text={line2} isHovered={isHovered} offset={line1.length} />
+    </h2>
+  );
+}
 
-  const initCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
+const links = [
+  { label: "Email",    href: `mailto:${portfolio.email}`, value: portfolio.email,    external: false },
+  { label: "GitHub",   href: portfolio.github,            value: "@esatcesur74",     external: true  },
+  { label: "LinkedIn", href: portfolio.linkedin,          value: "Siar Esat Cesur",  external: true  },
+];
 
-    const rect = container.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ready.current = true;
-  }, []);
-
-  useEffect(() => {
-    initCanvas();
-    const observer = new ResizeObserver(initCanvas);
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [initCanvas]);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ready.current) return;
-    const canvas = canvasRef.current;
-    const container = containerRef.current;
-    if (!canvas || !container) return;
-
-    const rect = container.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    ctx.globalCompositeOperation = "destination-out";
-
-    const prev = prevPos.current;
-    if (prev) {
-      const dist = Math.sqrt((x - prev.x) ** 2 + (y - prev.y) ** 2);
-      const steps = Math.max(1, Math.floor(dist / 3));
-      for (let i = 0; i <= steps; i++) {
-        const t = i / steps;
-        const cx = prev.x + (x - prev.x) * t;
-        const cy = prev.y + (y - prev.y) * t;
-        ctx.beginPath();
-        ctx.arc(cx, cy, 38, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    } else {
-      ctx.beginPath();
-      ctx.arc(x, y, 38, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    prevPos.current = { x, y };
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    prevPos.current = null;
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }, []);
+function ContactLink({ label, href, value, external, index }: {
+  label: string; href: string; value: string; external: boolean; index: number;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative overflow-hidden border-b border-gray-200"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      className="flex items-center justify-between py-8 border-b border-gray-200 group overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div
-        className="absolute inset-0 z-0"
-        style={{ backgroundColor: revealColor }}
-      />
-
-      <a
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
-        className="relative z-10 flex items-center justify-between py-6 group"
-      >
-        {children}
-      </a>
-
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full z-5"
-        style={{ pointerEvents: "none" }}
-      />
-    </div>
+      <div className="flex items-baseline gap-6">
+        <span className="text-xs font-mono text-gray-400 tabular-nums">
+          0{index + 1}
+        </span>
+        <span className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-gray-900 select-none">
+          <DisperseChars text={label} isHovered={isHovered} />
+        </span>
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="hidden sm:block text-sm font-mono text-gray-400 group-hover:text-gray-700 transition-colors duration-300">
+          {value}
+        </span>
+        <motion.div
+          animate={isHovered ? { x: 4, y: -4 } : { x: 0, y: 0 }}
+          transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+        >
+          <ArrowUpRight size={22} className="text-gray-300 group-hover:text-gray-900 transition-colors duration-300" />
+        </motion.div>
+      </div>
+    </a>
   );
 }
 
@@ -164,14 +125,9 @@ export default function Contact() {
           >
             Contact
           </motion.p>
-          <motion.h2
-            variants={fadeUpVariants}
-            className="text-4xl md:text-6xl font-black tracking-tight text-gray-900 leading-tight"
-          >
-            Let&apos;s build
-            <br />
-            something.
-          </motion.h2>
+          <motion.div variants={fadeUpVariants}>
+            <DisperseHeading />
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -181,29 +137,15 @@ export default function Contact() {
           variants={staggerContainerVariants}
           className="border-t border-gray-200"
         >
-          {links.map(({ label, href, icon, value, revealColor }) => (
+          {links.map(({ label, href, value, external }, i) => (
             <motion.div key={label} variants={fadeUpVariants}>
-              <PaintLink
+              <ContactLink
+                label={label}
                 href={href}
-                external={label !== "Email"}
-                revealColor={revealColor}
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-gray-400 group-hover:text-gray-900 transition-colors">
-                    {icon}
-                  </span>
-                  <div>
-                    <p className="text-xs text-gray-400 uppercase tracking-widest mb-0.5">
-                      {label}
-                    </p>
-                    <p className="font-semibold text-gray-900">{value}</p>
-                  </div>
-                </div>
-                <ArrowUpRight
-                  size={20}
-                  className="text-gray-300 group-hover:text-gray-900 transition-colors"
-                />
-              </PaintLink>
+                value={value}
+                external={external}
+                index={i}
+              />
             </motion.div>
           ))}
         </motion.div>
