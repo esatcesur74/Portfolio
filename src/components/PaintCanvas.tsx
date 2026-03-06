@@ -10,7 +10,7 @@ export default function PaintCanvas({ brushSize = 50 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prevPos = useRef<{ x: number; y: number } | null>(null);
   const animRef = useRef<number | null>(null);
-  const alphaRef = useRef<number>(1); // tracks how much canvas is "filled"
+  const alphaRef = useRef<number>(1);
 
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -43,7 +43,6 @@ export default function PaintCanvas({ brushSize = 50 }: Props) {
 
       ctx.globalCompositeOperation = "destination-out";
 
-      // Lerp: fill in gaps between previous and current position
       const dist = Math.sqrt((x - px) ** 2 + (y - py) ** 2);
       const steps = Math.max(1, Math.floor(dist / 4));
 
@@ -72,7 +71,6 @@ export default function PaintCanvas({ brushSize = 50 }: Props) {
       if (prevPos.current) {
         drawCircles(x, y, prevPos.current.x, prevPos.current.y);
       } else {
-        // First touch — draw a single circle
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.globalCompositeOperation = "destination-out";

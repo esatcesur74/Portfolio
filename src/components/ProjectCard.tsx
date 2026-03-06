@@ -17,22 +17,18 @@ export default function ProjectCard({ project }: Props) {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="group border border-gray-200 p-8 hover:border-gray-900 transition-colors duration-300 flex flex-col gap-5"
     >
-      {/* Number */}
       <span className="text-xs font-semibold tracking-widest text-gray-300 uppercase">
         0{project.id}
       </span>
 
-      {/* Title */}
       <h3 className="text-xl font-bold text-gray-900 tracking-tight">
         {project.title}
       </h3>
 
-      {/* Description */}
       <p className="text-gray-500 text-sm leading-relaxed flex-1">
         {project.description}
       </p>
 
-      {/* Tags */}
       <div className="flex flex-wrap gap-2">
         {project.tags.map((tag) => (
           <span
@@ -44,7 +40,6 @@ export default function ProjectCard({ project }: Props) {
         ))}
       </div>
 
-      {/* Links */}
       <div className="flex gap-4 pt-2 border-t border-gray-100">
         <a
           href={project.liveUrl}

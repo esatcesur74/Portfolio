@@ -10,7 +10,6 @@ interface Props {
   i: number;
 }
 
-// Sliding panel variants — image-slide effect
 const slideEase: [number, number, number, number] = [0.23, 1, 0.32, 1];
 const panelVariants = {
   closed: { width: 0, opacity: 0 },
@@ -25,7 +24,6 @@ export default function ProjectRow({ project, i }: Props) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    // Colored card effect: negative margin creates overlap between rows
     <motion.div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -35,9 +33,9 @@ export default function ProjectRow({ project, i }: Props) {
       }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       style={{ marginTop: i > 0 ? "-1px" : "0", position: "relative", zIndex: hovered ? 10 : i }}
-      className="border border-gray-200 px-8 py-8 flex items-center gap-6 cursor-pointer overflow-hidden"
+      data-cursor="view"
+      className="border border-gray-200 px-8 py-8 flex items-center gap-6 overflow-hidden"
     >
-      {/* Number */}
       <motion.span
         animate={{ color: hovered ? project.textColor : "#d1d5db" }}
         transition={{ duration: 0.2 }}
@@ -46,7 +44,6 @@ export default function ProjectRow({ project, i }: Props) {
         0{project.id}
       </motion.span>
 
-      {/* Title + description */}
       <div className="flex-1 min-w-0">
         <motion.h3
           animate={{ color: hovered ? project.textColor : "#111111" }}
@@ -64,7 +61,6 @@ export default function ProjectRow({ project, i }: Props) {
         </motion.p>
       </div>
 
-      {/* Tags */}
       <div className="hidden md:flex flex-wrap gap-2 shrink-0">
         {project.tags.map((tag) => (
           <motion.span
@@ -81,7 +77,6 @@ export default function ProjectRow({ project, i }: Props) {
         ))}
       </div>
 
-      {/* Links */}
       <div className="flex gap-4 shrink-0">
         <a
           href={project.liveUrl}
@@ -117,7 +112,6 @@ export default function ProjectRow({ project, i }: Props) {
         </a>
       </div>
 
-      {/* Image-slide panel: slides in from right on hover */}
       <AnimatePresence>
         {hovered && (
           <motion.div

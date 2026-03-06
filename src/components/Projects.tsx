@@ -13,7 +13,6 @@ export default function Projects() {
   return (
     <section id="projects" className="py-28 px-8 md:px-16 lg:px-24">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -35,7 +34,6 @@ export default function Projects() {
           </motion.h2>
         </motion.div>
 
-        {/* Stacked rows — colored card overlap + image slide on hover */}
         <motion.div
           initial="hidden"
           whileInView="visible"

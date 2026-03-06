@@ -35,7 +35,6 @@ export default function ParallaxCard({
 }: Props) {
   const container = useRef<HTMLDivElement>(null);
 
-  // Per-card scroll: controls the highlight text parallax
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "start start"],
@@ -44,7 +43,6 @@ export default function ParallaxCard({
   const highlightY = useTransform(scrollYProgress, [0, 1], [60, 0]);
   const highlightOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
 
-  // Overall section scroll: controls card scale-down as next card pushes in
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
@@ -60,11 +58,7 @@ export default function ParallaxCard({
           transformOrigin: "top",
         }}
         className="relative sticky w-full max-w-5xl rounded-3xl p-10 md:p-16 overflow-hidden"
-        // min height so the card has presence
-        // using aspect-ratio-ish height
-        // 520px felt good in Olivier's demo
       >
-        {/* Card index */}
         <p
           className="text-xs font-bold tracking-widest uppercase mb-8 opacity-40"
           style={{ color: textColor }}
@@ -73,7 +67,6 @@ export default function ParallaxCard({
         </p>
 
         <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
-          {/* Left — title + body */}
           <div className="flex-1">
             <h3
               className="text-3xl md:text-4xl font-black tracking-tight leading-tight mb-6"
@@ -89,7 +82,6 @@ export default function ParallaxCard({
             </p>
           </div>
 
-          {/* Right — animated large highlight text */}
           <div className="flex-1 flex items-end justify-end overflow-hidden">
             <motion.p
               style={{

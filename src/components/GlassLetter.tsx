@@ -16,7 +16,6 @@ function Letter() {
 
   useFrame(() => {
     if (!meshRef.current) return;
-    // Smooth lerp toward mouse position for 3D parallax
     meshRef.current.rotation.x = THREE.MathUtils.lerp(
       meshRef.current.rotation.x,
       mouse.y * -0.4,

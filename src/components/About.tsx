@@ -44,14 +44,12 @@ export default function About() {
 
   return (
     <section id="about" ref={container} style={{ height: `${cards.length * 100}vh` }}>
-      {/* Section label — sticky at top while cards scroll */}
       <div className="sticky top-0 z-0 pt-24 pb-4 px-8 md:px-16 lg:px-24 pointer-events-none">
         <p className="text-xs font-semibold tracking-widest uppercase text-gray-300">
           About
         </p>
       </div>
 
-      {/* Stacked parallax cards */}
       <div className="-mt-24">
         {cards.map((card, i) => {
           const targetScale = 1 - (cards.length - i) * 0.05;

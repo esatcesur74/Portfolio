@@ -5,8 +5,8 @@ export interface Project {
   tags: string[];
   liveUrl: string;
   githubUrl: string;
-  color: string;       // hover background color
-  textColor: string;   // text color on hover (light or dark)
+  color: string;
+  textColor: string;
 }
 
 export interface SkillGroup {

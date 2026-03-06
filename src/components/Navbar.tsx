@@ -1,129 +1,222 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
 import portfolio from "@/data/portfolio";
+import PixelTransition from "./PixelTransition";
 
 const navLinks = [
-  { label: "About", href: "#about" },
+  { label: "About",    href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "Skills",   href: "#skills" },
+  { label: "Contact",  href: "#contact" },
 ];
 
 const YELLOW = "#ffed29";
+const EASE   = "cubic-bezier(0.33, 1, 0.68, 1)";
 
-export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+const linkVariants = {
+  initial: { opacity: 0, y: 50 },
+  open: (i: number) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.55, delay: 0.2 + i * 0.07, ease: [0.33, 1, 0.68, 1] },
+  }),
+  closed: (i: number) => ({
+    opacity: 0, y: 20,
+    transition: { duration: 0.2, delay: i * 0.03 },
+  }),
+};
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+function SlideLink({
+  index,
+  label,
+  onClick,
+}: {
+  index: number;
+  label: string;
+  onClick: () => void;
+}) {
+  const bgRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const sectionIds = navLinks.map((l) => l.href.slice(1));
-    const observers: IntersectionObserver[] = [];
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-40% 0px -55% 0px" }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  const getDir = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    return e.clientY < rect.top + rect.height / 2 ? "-101%" : "101%";
+  };
+
+  const handleEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    const from = getDir(e);
+    if (!bgRef.current) return;
+    bgRef.current.style.transition = "none";
+    bgRef.current.style.transform = `translateY(${from})`;
+    void bgRef.current.offsetHeight;
+    bgRef.current.style.transition = `transform 0.35s ${EASE}`;
+    bgRef.current.style.transform = "translateY(0%)";
+  };
+
+  const handleLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const to = getDir(e);
+    if (!bgRef.current) return;
+    bgRef.current.style.transition = `transform 0.35s ${EASE}`;
+    bgRef.current.style.transform = `translateY(${to})`;
+  };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100"
-          : "bg-transparent"
-      }`}
+    <div
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        borderTop: "1px solid rgba(0,0,0,0.15)",
+      }}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#"
-          className="text-lg font-bold text-gray-900 transition-colors duration-200"
+      <div
+        ref={bgRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: YELLOW,
+          transform: "translateY(101%)",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+
+      <button
+        onClick={onClick}
+        style={{
+          position: "relative",
+          zIndex: 1,
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "baseline",
+          gap: "clamp(0.5rem, 2vw, 1.5rem)",
+          padding: "0.15em 0",
+          width: "100%",
+          textAlign: "left",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "clamp(0.7rem, 1.2vw, 1rem)",
+            fontWeight: 700,
+            color: "#111111",
+            opacity: 0.35,
+            letterSpacing: "0.05em",
+            minWidth: "2ch",
+          }}
         >
-          {portfolio.name.split(" ")[0]}
-          <span style={{ color: YELLOW }}>.</span>
-        </a>
+          0{index + 1}
+        </span>
 
-        {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href.slice(1);
-            return (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="relative text-sm font-medium transition-colors duration-200 group text-gray-600 hover:text-gray-900"
-                >
-                  {link.label}
-                  {/* Yellow underline — active or hover */}
-                  <span
-                    className="absolute -bottom-1 left-0 h-0.5 transition-all duration-300"
-                    style={{
-                      backgroundColor: YELLOW,
-                      width: isActive ? "100%" : "0%",
-                    }}
-                  />
-                  <span
-                    className="absolute -bottom-1 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-300"
-                    style={{ backgroundColor: YELLOW }}
-                  />
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen((v) => !v)}
-          className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-          aria-label="Toggle menu"
+        <span
+          className="font-black uppercase leading-none select-none"
+          style={{
+            display: "block",
+            fontSize: "clamp(2.8rem, 8vw, 7rem)",
+            color: "#111111",
+            letterSpacing: "-0.03em",
+          }}
         >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </nav>
+          {label}
+        </span>
+      </button>
+    </div>
+  );
+}
 
-      {/* Mobile menu */}
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  const handleNavClick = (href: string) => {
+    setMenuOpen(false);
+    setTimeout(() => {
+      document.getElementById(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    }, 350);
+  };
+
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 transition-all duration-300" style={{ zIndex: 200 }}>
+        <nav
+          className="px-8 md:px-16 h-16 flex items-center justify-between"
+          style={{
+            backgroundColor: menuOpen ? "transparent" : scrolled ? "rgba(255,255,255,0.92)" : "transparent",
+            backdropFilter: !menuOpen && scrolled ? "blur(8px)" : "none",
+            borderBottom: !menuOpen && scrolled ? "1px solid #f3f4f6" : "none",
+            transition: "background-color 0.3s, border-bottom 0.3s",
+          }}
+        >
+          <a href="#" className="text-lg font-bold" style={{ color: "#111111", position: "relative", zIndex: 201 }}>
+            {portfolio.name.split(" ")[0]}
+            <span style={{ color: YELLOW }}>.</span>
+          </a>
+
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+            style={{ position: "relative", zIndex: 201, background: "none", border: "none", cursor: "pointer", padding: "8px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "7px" }}
+          >
+            <motion.span animate={menuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }} transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#111111", transformOrigin: "center" }} />
+            <motion.span animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} transition={{ duration: 0.2 }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#111111" }} />
+            <motion.span animate={menuOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }} transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#111111", transformOrigin: "center" }} />
+          </button>
+        </nav>
+      </header>
+
+      <PixelTransition isActive={menuOpen} />
+
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden bg-white border-b border-gray-100"
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 150,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "0 clamp(2rem, 8vw, 8rem)",
+              pointerEvents: "none",
+            }}
           >
-            <ul className="flex flex-col px-6 py-4 gap-4">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block text-base font-medium text-gray-700 hover:text-gray-900 transition-colors py-1"
+            <nav style={{ borderBottom: "1px solid rgba(0,0,0,0.15)" }}>
+              {navLinks.map((link, i) => (
+                <div key={link.href} style={{ overflow: "hidden" }}>
+                  <motion.div
+                    custom={i}
+                    variants={linkVariants}
+                    initial="initial"
+                    animate="open"
+                    exit="closed"
+                    style={{ pointerEvents: "auto" }}
                   >
-                    {link.label}
-                  </a>
-                </li>
+                    <SlideLink
+                      index={i}
+                      label={link.label}
+                      onClick={() => handleNavClick(link.href)}
+                    />
+                  </motion.div>
+                </div>
               ))}
-            </ul>
-          </motion.div>
+            </nav>
+          </div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

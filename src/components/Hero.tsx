@@ -27,8 +27,6 @@ export default function Hero() {
       <PixelGrid />
 
       <div className="relative w-full px-8 md:px-16 lg:px-24 pointer-events-none">
-
-        {/* Greeting — outside blend mode, normal grey */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -40,15 +38,6 @@ export default function Hero() {
           <span style={{ color: "#ffed29" }} className="animate-pulse font-black">|</span>
         </motion.p>
 
-        {/*
-          Olivier Larose pixel blend:
-          - Outer div: mix-blend-mode: difference (NO animation on this div — critical)
-          - Inner text: color white
-          - White on white bg  →  abs(255-255) = 0  →  appears BLACK  ✓
-          - White on yellow px →  abs(255-255, 255-237, 255-41) = (0,18,214) → appears deep indigo,
-            only in the exact cells where cursor passes  ✓
-          Cursor and divider are siblings OUTSIDE this wrapper so they keep their yellow color.
-        */}
         <div style={{ mixBlendMode: "difference" }}>
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -70,7 +59,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Yellow divider — outside blend wrapper, stays yellow */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -82,7 +70,6 @@ export default function Hero() {
           }}
         />
 
-        {/* Subtitle — outside blend wrapper, stays dark */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,7 +81,6 @@ export default function Hero() {
         </motion.p>
       </div>
 
-      {/* Scroll indicator */}
       <motion.a
         href="#about"
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 hover:text-black transition-colors z-20"

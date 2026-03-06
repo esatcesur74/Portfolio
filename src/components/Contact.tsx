@@ -10,28 +10,27 @@ import {
   viewportOptions,
 } from "@/hooks/useScrollAnimation";
 
-// Subtle reveal colors per link
 const links = [
   {
     label: "Email",
     href: `mailto:${portfolio.email}`,
     icon: <Mail size={18} />,
     value: portfolio.email,
-    revealColor: "#ffed29",   // bright yellow
+    revealColor: "#ffed29",
   },
   {
     label: "GitHub",
     href: portfolio.github,
     icon: <Github size={18} />,
     value: "@esatcesur74",
-    revealColor: "#fff176",   // lighter yellow
+    revealColor: "#fff176",
   },
   {
     label: "LinkedIn",
     href: portfolio.linkedin,
     icon: <Linkedin size={18} />,
     value: "Siar Esat Cesur",
-    revealColor: "#fffde7",   // pale yellow tint
+    revealColor: "#fffde7",
   },
 ];
 
@@ -42,8 +41,6 @@ interface PaintLinkProps {
   children: ReactNode;
 }
 
-// Wraps a link with a paint-reveal canvas scoped only to this row.
-// Canvas has pointer-events:none so the link is always clickable.
 function PaintLink({ href, external, revealColor, children }: PaintLinkProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -62,7 +59,6 @@ function PaintLink({ href, external, revealColor, children }: PaintLinkProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Fill the canvas white — this covers the revealColor div beneath
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ready.current = true;
@@ -112,7 +108,6 @@ function PaintLink({ href, external, revealColor, children }: PaintLinkProps) {
 
   const handleMouseLeave = useCallback(() => {
     prevPos.current = null;
-    // Re-fill canvas with white to reset
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -129,13 +124,11 @@ function PaintLink({ href, external, revealColor, children }: PaintLinkProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Reveal color layer — sits behind everything, shown when canvas is erased */}
       <div
         className="absolute inset-0 z-0"
         style={{ backgroundColor: revealColor }}
       />
 
-      {/* Link content — z-10, always visible and clickable */}
       <a
         href={href}
         target={external ? "_blank" : undefined}
@@ -145,7 +138,6 @@ function PaintLink({ href, external, revealColor, children }: PaintLinkProps) {
         {children}
       </a>
 
-      {/* White canvas — z-5, pointer-events:none, erased on mouse move */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full z-5"
@@ -159,7 +151,6 @@ export default function Contact() {
   return (
     <section id="contact" className="py-28 px-8 md:px-16 lg:px-24 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -183,7 +174,6 @@ export default function Contact() {
           </motion.h2>
         </motion.div>
 
-        {/* Links with paint reveal — scoped per link */}
         <motion.div
           initial="hidden"
           whileInView="visible"

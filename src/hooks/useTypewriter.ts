@@ -23,14 +23,11 @@ export function useTypewriter({
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
-          // Typing
           setText(currentWord.slice(0, text.length + 1));
           if (text.length + 1 === currentWord.length) {
-            // Finished typing — pause then start deleting
             setTimeout(() => setIsDeleting(true), pauseMs);
           }
         } else {
-          // Deleting
           setText(currentWord.slice(0, text.length - 1));
           if (text.length - 1 === 0) {
             setIsDeleting(false);

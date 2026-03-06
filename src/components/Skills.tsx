@@ -12,7 +12,6 @@ import {
 export default function Skills() {
   return (
     <section id="skills" className="py-28 px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
-      {/* Header */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -34,7 +33,6 @@ export default function Skills() {
         </motion.h2>
       </motion.div>
 
-      {/* Skill groups */}
       <div className="space-y-12">
         {portfolio.skillGroups.map((group) => (
           <motion.div
