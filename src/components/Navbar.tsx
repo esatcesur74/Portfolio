@@ -19,7 +19,7 @@ const linkVariants = {
   initial: { opacity: 0, y: 50 },
   open: (i: number) => ({
     opacity: 1, y: 0,
-    transition: { duration: 0.55, delay: 0.2 + i * 0.07, ease: [0.33, 1, 0.68, 1] },
+    transition: { duration: 0.55, delay: 0.2 + i * 0.07, ease: [0.33, 1, 0.68, 1] as [number, number, number, number] },
   }),
   closed: (i: number) => ({
     opacity: 0, y: 20,
