@@ -1,48 +1,79 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
+
+const CELL_VW = 0.03;
 
 export default function PixelGrid() {
-  const [windowWidth, setWindowWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const container = containerRef.current;
+    if (!container) return;
+
+    let cols = 0;
+    let rows = 0;
+    let cells: HTMLDivElement[] = [];
+    let lastIdx = -1;
+
+    const rebuild = () => {
+      const cellPx = window.innerWidth * CELL_VW;
+      cols = Math.ceil(window.innerWidth / cellPx);
+      rows = Math.ceil(window.innerHeight / cellPx);
+
+      container.innerHTML = "";
+      cells = [];
+
+      container.style.gridTemplateColumns = `repeat(${cols}, ${cellPx}px)`;
+      container.style.gridTemplateRows    = `repeat(${rows}, ${cellPx}px)`;
+
+      for (let i = 0; i < cols * rows; i++) {
+        const cell = document.createElement("div");
+        cell.style.width  = `${cellPx}px`;
+        cell.style.height = `${cellPx}px`;
+        cell.style.transition = "background-color 0.35s ease";
+        container.appendChild(cell);
+        cells.push(cell);
+      }
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const cellPx = window.innerWidth * CELL_VW;
+      const col = Math.floor(e.clientX / cellPx);
+      const row = Math.floor(e.clientY / cellPx);
+      const idx = row * cols + col;
+
+      if (idx === lastIdx || !cells[idx]) return;
+      lastIdx = idx;
+
+      const cell = cells[idx];
+      cell.style.backgroundColor = "#ffffff";
+      setTimeout(() => {
+        cell.style.backgroundColor = "";
+      }, 400);
+    };
+
+    rebuild();
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("resize", rebuild);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("resize", rebuild);
+    };
   }, []);
-
-  const colorize = (el: HTMLDivElement) => {
-    el.style.backgroundColor = "#ffed29";
-    setTimeout(() => {
-      el.style.backgroundColor = "transparent";
-    }, 300);
-  };
-
-  const getBlocks = () => {
-    const blockSize = windowWidth * 0.05;
-    const nbOfBlocks = Math.ceil(window.innerHeight / blockSize);
-    return [...Array(nbOfBlocks).keys()].map((_, index) => (
-      <div
-        key={index}
-        onMouseEnter={(e) => colorize(e.currentTarget)}
-        style={{ width: "100%", height: "5vw" }}
-      />
-    ));
-  };
-
-  if (windowWidth === 0) return null;
 
   return (
     <div
-      className="absolute inset-0 flex overflow-hidden pointer-events-none"
-      style={{ pointerEvents: "auto" }}
-    >
-      {[...Array(20).keys()].map((_, index) => (
-        <div key={index} style={{ width: "5vw", flexShrink: 0 }}>
-          {getBlocks()}
-        </div>
-      ))}
-    </div>
+      ref={containerRef}
+      style={{
+        position: "fixed",
+        inset: 0,
+        display: "grid",
+        pointerEvents: "none",
+        zIndex: 9998,
+        mixBlendMode: "difference",
+      }}
+    />
   );
 }

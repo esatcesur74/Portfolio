@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
-import PixelGrid from "./PixelGrid";
 import { useTypewriter } from "@/hooks/useTypewriter";
 
 const GREETINGS = [
@@ -10,104 +8,97 @@ const GREETINGS = [
   "merhaba, ben",
   "bonjour, je suis",
   "hola, soy",
-  "ciao, sono",
   "hallo, ich bin",
+];
+
+const chapters = [
+  { label: "About Me",   href: "#about" },
+  { label: "Projects",   href: "#projects" },
+  { label: "Tech Stack", href: "#skills" },
+  { label: "Contact Me", href: "#contact" },
 ];
 
 export default function Hero() {
   const { text } = useTypewriter({
     words: GREETINGS,
-    typingSpeed: 70,
-    deletingSpeed: 40,
-    pauseMs: 1600,
+    typingSpeed: 60,
+    deletingSpeed: 35,
+    pauseMs: 1800,
   });
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
-      <PixelGrid />
+    <section className="relative min-h-screen flex flex-col bg-white overflow-hidden">
 
-      <div className="relative w-full px-8 md:px-16 lg:px-24 pointer-events-none">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-medium mb-3 text-gray-500"
-          style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)" }}
-        >
-          {text}
-          <span style={{ color: "#ffed29" }} className="animate-pulse font-black">|</span>
-        </motion.p>
+      <div className="flex flex-1 items-start justify-between px-8 md:px-16 lg:px-24 pt-28 md:pt-32">
 
-        <div className="relative">
-          <div style={{ mixBlendMode: "difference" }}>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            >
-              <h1
-                className="font-normal lowercase leading-none tracking-tighter select-none"
-                style={{ fontSize: "clamp(2.5rem, 7vw, 8rem)", color: "#ffffff" }}
-              >
-                esat
-              </h1>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="hidden md:flex flex-col items-end gap-1 absolute bottom-0 right-0"
+        <div className="flex flex-col gap-2">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-sm md:text-base font-medium text-gray-500 tracking-wide min-h-[1.5em]"
           >
-            <span
-              className="font-medium tracking-widest select-none"
-              style={{ fontSize: "clamp(0.85rem, 1.2vw, 1.1rem)", color: "#111111" }}
-            >
-              norway · oslo
-            </span>
-            <span
-              className="font-medium tracking-widest select-none"
-              style={{ fontSize: "clamp(0.85rem, 1.2vw, 1.1rem)", color: "#111111", opacity: 0.5 }}
-            >
-              2026
-            </span>
-          </motion.div>
+            {text}
+            <span className="animate-pulse font-black text-gray-400">|</span>
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
+            className="font-black tracking-tight leading-none text-gray-900"
+            style={{ fontSize: "clamp(2.2rem, 5.5vw, 6rem)" }}
+          >
+            Siar Esat<br />Cesur
+          </motion.h1>
         </div>
 
         <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-          className="h-1 my-5 origin-left"
-          style={{
-            width: "clamp(200px, 40vw, 600px)",
-            backgroundColor: "#ffed29",
-          }}
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="font-medium tracking-wide text-gray-700"
-          style={{ fontSize: "clamp(1rem, 2vw, 1.75rem)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="hidden md:flex flex-col items-end gap-1 pt-2"
         >
-          developer · student
-        </motion.p>
+          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-400">
+            Norway Oslo
+          </span>
+        </motion.div>
       </div>
 
-      <motion.a
-        href="#about"
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 hover:text-black transition-colors z-20"
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="px-8 md:px-16 lg:px-24 pb-12"
       >
-        <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
-        <ArrowDown size={14} />
-      </motion.a>
+        <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-gray-400 mb-4">
+          Chapters
+        </p>
+
+        <div className="border-t border-gray-200">
+          {chapters.map((ch, i) => (
+            <motion.a
+              key={ch.href}
+              href={ch.href}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 + i * 0.08 }}
+              className="flex items-center justify-between py-3 border-b border-gray-200"
+            >
+              <div className="flex items-center gap-6">
+                <span className="text-[10px] font-semibold tracking-widest text-gray-300 w-6">
+                  0{i + 1}
+                </span>
+                <span className="text-sm md:text-base font-medium text-gray-700">
+                  {ch.label}
+                </span>
+              </div>
+              <span className="text-gray-300 text-lg">→</span>
+            </motion.a>
+          ))}
+        </div>
+      </motion.div>
+
     </section>
   );
 }

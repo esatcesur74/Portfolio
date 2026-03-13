@@ -41,24 +41,32 @@ export default function ProjectCard({ project }: Props) {
       </div>
 
       <div className="flex gap-4 pt-2 border-t border-gray-100">
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-sm font-medium text-gray-900 hover:opacity-60 transition-opacity"
-        >
-          <ExternalLink size={14} />
-          Live
-        </a>
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-        >
-          <Github size={14} />
-          Code
-        </a>
+        {project.liveUrl ? (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-900 hover:opacity-60 transition-opacity"
+          >
+            <ExternalLink size={14} />
+            Live
+          </a>
+        ) : (
+          <span className="flex items-center gap-1.5 text-sm font-medium text-gray-300 italic">
+            Work in Progress
+          </span>
+        )}
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            <Github size={14} />
+            Code
+          </a>
+        )}
       </div>
     </motion.div>
   );
