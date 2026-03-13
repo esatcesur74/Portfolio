@@ -16,7 +16,7 @@ export default function AboutScene({ activeCard }: Props) {
       <Canvas
         style={{ pointerEvents: "none" }}
         onCreated={(state) => {
-          state.events.disconnect();
+          state.events.disconnect?.();
         }}
       >
         <AboutModel activeCard={activeCard} />
