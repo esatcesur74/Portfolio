@@ -78,9 +78,8 @@ export default function ParallaxCard({
 
             <div className="relative flex-1 my-6">
               <motion.div
-                style={{ opacity: imgOpacity } as React.CSSProperties & { opacity: MotionValue<number> }}
+                style={{ opacity: imgOpacity, width: "28%" } as React.CSSProperties & { opacity: MotionValue<number> }}
                 className="absolute top-0 right-0 h-full overflow-hidden"
-                style={{ width: "28%" }}
               >
                 <img
                   src={image}
