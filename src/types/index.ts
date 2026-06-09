@@ -1,3 +1,12 @@
+export interface ProjectSection {
+  type?: "hero" | "side";
+  image?: string;
+  video?: string;
+  imagePosition?: "left" | "right";
+  heading: string;
+  body: string;
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -6,8 +15,10 @@ export interface Project {
   image?: string;
   liveUrl?: string;
   githubUrl?: string;
+  badge?: string;
   color: string;
   textColor: string;
+  sections?: ProjectSection[];
 }
 
 export interface SkillGroup {

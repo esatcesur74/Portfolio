@@ -54,7 +54,8 @@ function DisperseHeading() {
   const line2 = "something.";
   return (
     <h2
-      className="text-4xl md:text-6xl font-black tracking-tight text-gray-900 leading-tight cursor-default select-none"
+      className="text-4xl md:text-6xl font-black tracking-tight leading-tight cursor-default select-none"
+      style={{ color: "#ffffff" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -81,27 +82,28 @@ function ContactLink({ label, href, value, external, index }: {
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="flex items-center justify-between py-8 border-b border-gray-200 group overflow-hidden"
+      className="flex items-center justify-between py-8 group overflow-hidden"
+      style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-baseline gap-6">
-        <span className="text-xs font-mono text-gray-400 tabular-nums">
+        <span className="text-xs font-mono tabular-nums" style={{ color: "rgba(255,255,255,0.25)" }}>
           0{index + 1}
         </span>
-        <span className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-gray-900 select-none">
+        <span className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight select-none" style={{ color: "#ffffff" }}>
           <DisperseChars text={label} isHovered={isHovered} />
         </span>
       </div>
       <div className="flex items-center gap-4">
-        <span className="hidden sm:block text-sm font-mono text-gray-400 group-hover:text-gray-700 transition-colors duration-300">
+        <span className="hidden sm:block text-sm font-mono transition-colors duration-300" style={{ color: "rgba(255,255,255,0.35)" }}>
           {value}
         </span>
         <motion.div
           animate={isHovered ? { x: 4, y: -4 } : { x: 0, y: 0 }}
           transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
         >
-          <ArrowUpRight size={22} className="text-gray-300 group-hover:text-gray-900 transition-colors duration-300" />
+          <ArrowUpRight size={22} style={{ color: "rgba(255,255,255,0.3)" }} className="group-hover:!text-white transition-colors duration-300" />
         </motion.div>
       </div>
     </a>
@@ -110,7 +112,7 @@ function ContactLink({ label, href, value, external, index }: {
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-28 px-8 md:px-16 lg:px-24 bg-gray-50">
+    <section id="contact" className="py-28 px-8 md:px-16 lg:px-24" style={{ backgroundColor: "#0d0d0d" }}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial="hidden"
@@ -121,7 +123,8 @@ export default function Contact() {
         >
           <motion.p
             variants={fadeUpVariants}
-            className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4"
+            className="text-xs font-semibold tracking-widest uppercase mb-4"
+            style={{ color: "rgba(255,255,255,0.25)" }}
           >
             Contact
           </motion.p>
@@ -135,7 +138,7 @@ export default function Contact() {
           whileInView="visible"
           viewport={viewportOptions}
           variants={staggerContainerVariants}
-          className="border-t border-gray-200"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
           {links.map(({ label, href, value, external }, i) => (
             <motion.div key={label} variants={fadeUpVariants}>

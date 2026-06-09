@@ -11,7 +11,8 @@ import {
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-28 px-8 md:px-16 lg:px-24 max-w-7xl mx-auto">
+    <section id="skills" className="py-28 px-8 md:px-16 lg:px-24" style={{ backgroundColor: "#0d0d0d" }}>
+      <div className="max-w-7xl mx-auto">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -21,13 +22,15 @@ export default function Skills() {
       >
         <motion.p
           variants={slideLeftVariants}
-          className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-4"
+          className="text-xs font-semibold tracking-widest uppercase mb-4"
+          style={{ color: "rgba(255,255,255,0.25)" }}
         >
           Skills
         </motion.p>
         <motion.h2
           variants={slideLeftVariants}
-          className="text-4xl md:text-5xl font-black tracking-tight text-gray-900"
+          className="text-4xl md:text-5xl font-black tracking-tight"
+          style={{ color: "#ffffff" }}
         >
           Tech Stack
         </motion.h2>
@@ -44,7 +47,8 @@ export default function Skills() {
           >
             <motion.p
               variants={fadeUpVariants}
-              className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-5"
+              className="text-xs font-semibold tracking-widest uppercase mb-5"
+              style={{ color: "rgba(255,255,255,0.25)" }}
             >
               {group.category}
             </motion.p>
@@ -54,8 +58,9 @@ export default function Skills() {
                 <motion.span
                   key={skill}
                   variants={fadeUpVariants}
-                  whileHover={{ scale: 1.05, backgroundColor: "#ffed29", borderColor: "#ffed29" }}
-                  className="px-5 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200 cursor-default"
+                  whileHover={{ scale: 1.05, backgroundColor: "#ffed29", borderColor: "#ffed29", color: "#000000" }}
+                  className="px-5 py-2.5 text-sm font-medium cursor-default transition-colors duration-200"
+                  style={{ border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.6)" }}
                 >
                   {skill}
                 </motion.span>
@@ -63,6 +68,7 @@ export default function Skills() {
             </div>
           </motion.div>
         ))}
+      </div>
       </div>
     </section>
   );

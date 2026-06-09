@@ -155,18 +155,18 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 transition-all duration-300" style={{ zIndex: 200 }}>
+      <header className="absolute top-0 left-0 right-0 transition-all duration-300" style={{ zIndex: 200 }}>
         <nav
           className="px-8 md:px-16 h-16 flex items-center justify-between"
           style={{
-            backgroundColor: menuOpen ? "transparent" : scrolled ? "rgba(255,255,255,0.92)" : "transparent",
+            backgroundColor: menuOpen ? "transparent" : scrolled ? "rgba(13,13,13,0.92)" : "transparent",
             backdropFilter: !menuOpen && scrolled ? "blur(8px)" : "none",
             transition: "background-color 0.3s, border-bottom 0.3s",
           }}
         >
-          <a href="#" className="text-lg font-bold" style={{ color: "#111111", position: "relative", zIndex: 201 }}>
-            {portfolio.name.split(" ")[0]}
-            <span style={{ color: YELLOW }}>.</span>
+          <a href="#" style={{ position: "relative", zIndex: 201, textDecoration: "none", display: "flex", alignItems: "baseline", gap: "1px" }}>
+            <span style={{ fontSize: "1.1rem", fontWeight: 900, letterSpacing: "-0.04em", color: "#ffffff", fontFamily: "inherit" }}>csr</span>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", backgroundColor: YELLOW, display: "inline-block", marginLeft: 2, marginBottom: 2, flexShrink: 0 }} />
           </a>
 
           <button
@@ -174,9 +174,9 @@ export default function Navbar() {
             aria-label="Toggle menu"
             style={{ position: "relative", zIndex: 201, background: "none", border: "none", cursor: "pointer", padding: "8px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "7px" }}
           >
-            <motion.span animate={menuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }} transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#111111", transformOrigin: "center" }} />
-            <motion.span animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} transition={{ duration: 0.2 }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#111111" }} />
-            <motion.span animate={menuOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }} transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#111111", transformOrigin: "center" }} />
+            <motion.span animate={menuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }} transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#ffffff", transformOrigin: "center" }} />
+            <motion.span animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} transition={{ duration: 0.2 }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#ffffff" }} />
+            <motion.span animate={menuOpen ? { rotate: -45, y: -9 } : { rotate: 0, y: 0 }} transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }} style={{ display: "block", width: 28, height: 2, backgroundColor: "#ffffff", transformOrigin: "center" }} />
           </button>
         </nav>
       </header>

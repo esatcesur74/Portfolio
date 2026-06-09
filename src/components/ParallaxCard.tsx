@@ -70,9 +70,23 @@ export default function ParallaxCard({
                   letterSpacing: "-0.11em",
                   fontWeight: 600,
                   y: titleY,
+                  display: "flex",
+                  alignItems: "baseline",
                 } as React.CSSProperties & { y: MotionValue<number> }}
               >
-                {title}
+                {title.startsWith("@") ? (
+                  <>
+                    <motion.span
+                      initial={{ opacity: 0, y: -60, rotate: -180 }}
+                      whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      @
+                    </motion.span>
+                    {title.slice(1)}
+                  </>
+                ) : title}
               </motion.h3>
             </div>
 
@@ -120,9 +134,23 @@ export default function ParallaxCard({
                   letterSpacing: "-0.11em",
                   fontWeight: 600,
                   y: titleY,
+                  display: "flex",
+                  alignItems: "baseline",
                 } as React.CSSProperties & { y: MotionValue<number> }}
               >
-                {title}
+                {title.startsWith("@") ? (
+                  <>
+                    <motion.span
+                      initial={{ opacity: 0, y: -60, rotate: -180 }}
+                      whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      @
+                    </motion.span>
+                    {title.slice(1)}
+                  </>
+                ) : title}
               </motion.h3>
             </div>
 

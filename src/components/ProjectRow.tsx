@@ -8,6 +8,7 @@ import type { Project } from "@/types";
 interface Props {
   project: Project;
   i: number;
+  onClick: () => void;
 }
 
 const slideEase: [number, number, number, number] = [0.23, 1, 0.32, 1];
@@ -20,22 +21,29 @@ const panelVariants = {
   },
 };
 
-export default function ProjectRow({ project, i }: Props) {
+export default function ProjectRow({ project, i, onClick }: Props) {
   const [hovered, setHovered] = useState(false);
   const isWip = !project.liveUrl;
 
   return (
     <motion.div
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      style={{
+        cursor: "pointer",
+        marginTop: i > 0 ? "-1px" : "0",
+        position: "relative",
+        zIndex: hovered ? 10 : i,
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+      }}
       animate={{
-        backgroundColor: hovered ? project.color : "#ffffff",
+        backgroundColor: hovered ? project.color : "#0d0d0d",
         y: hovered ? -5 : 0,
       }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      style={{ marginTop: i > 0 ? "-1px" : "0", position: "relative", zIndex: hovered ? 10 : i }}
       data-cursor={isWip ? undefined : "view"}
-      className="border border-gray-200 px-8 py-8 flex items-center gap-6 overflow-hidden"
+      className="px-8 py-8 flex items-center gap-6 overflow-hidden"
     >
       <motion.span
         animate={{ color: hovered ? project.textColor : "#d1d5db" }}
@@ -47,14 +55,14 @@ export default function ProjectRow({ project, i }: Props) {
 
       <div className="flex-1 min-w-0">
         <motion.h3
-          animate={{ color: hovered ? project.textColor : "#111111" }}
+          animate={{ color: hovered ? project.textColor : "#ffffff" }}
           transition={{ duration: 0.2 }}
           className="text-xl md:text-2xl font-black tracking-tight mb-1"
         >
           {project.title}
         </motion.h3>
         <motion.p
-          animate={{ color: hovered ? project.textColor : "#6b7280", opacity: hovered ? 0.7 : 1 }}
+          animate={{ color: hovered ? project.textColor : "rgba(255,255,255,0.45)", opacity: hovered ? 0.7 : 1 }}
           transition={{ duration: 0.2 }}
           className="text-sm leading-relaxed max-w-md"
         >
@@ -67,8 +75,8 @@ export default function ProjectRow({ project, i }: Props) {
           <motion.span
             key={tag}
             animate={{
-              borderColor: hovered ? `${project.textColor}40` : "#e5e7eb",
-              color: hovered ? project.textColor : "#6b7280",
+              borderColor: hovered ? `${project.textColor}40` : "rgba(255,255,255,0.12)",
+              color: hovered ? project.textColor : "rgba(255,255,255,0.35)",
             }}
             transition={{ duration: 0.2 }}
             className="text-xs font-medium px-3 py-1 border"
@@ -79,10 +87,19 @@ export default function ProjectRow({ project, i }: Props) {
       </div>
 
       <div className="flex gap-4 shrink-0">
-        {isWip ? (
+        {project.badge ? (
+          <motion.span
+            animate={{ color: hovered ? project.textColor : "rgba(255,255,255,0.35)" }}
+            transition={{ duration: 0.2 }}
+            className="flex items-center gap-1.5 text-sm font-semibold cursor-default select-none"
+          >
+            <Lock size={13} />
+            {project.badge}
+          </motion.span>
+        ) : isWip ? (
           <motion.span
             animate={{
-              color: hovered ? project.textColor : "#9ca3af",
+              color: hovered ? project.textColor : "rgba(255,255,255,0.3)",
               opacity: hovered ? 0.6 : 1,
             }}
             transition={{ duration: 0.2 }}
@@ -100,7 +117,7 @@ export default function ProjectRow({ project, i }: Props) {
             className="relative z-20"
           >
             <motion.span
-              animate={{ color: hovered ? project.textColor : "#111111" }}
+              animate={{ color: hovered ? project.textColor : "rgba(255,255,255,0.6)" }}
               transition={{ duration: 0.2 }}
               className="flex items-center gap-1.5 text-sm font-semibold hover:opacity-60 transition-opacity"
             >
@@ -118,7 +135,7 @@ export default function ProjectRow({ project, i }: Props) {
             className="relative z-20"
           >
             <motion.span
-              animate={{ color: hovered ? project.textColor : "#6b7280" }}
+              animate={{ color: hovered ? project.textColor : "rgba(255,255,255,0.4)" }}
               transition={{ duration: 0.2 }}
               className="flex items-center gap-1.5 text-sm font-semibold hover:opacity-60 transition-opacity"
             >
