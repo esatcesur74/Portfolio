@@ -83,7 +83,7 @@ const portfolio: PortfolioData = {
     {
       id: 3,
       title: "Mesta Road Data Dashboard",
-      description: "Bachelor capstone project graded A. A full-stack internal dashboard for Norway's largest road maintenance company, featuring live maps, weather data, KPI charts, and operational cost tracking.",
+      description: "Bachelor's thesis graded A. A full-stack internal dashboard for Norway's largest road maintenance company, featuring live maps, weather data, KPI charts, and operational cost tracking.",
       tags: ["React", "TypeScript", "MapLibre", "UI Design"],
       image: "/images/mestaenglishdark.png",
       badge: "Graded A — Confidential",
@@ -94,7 +94,7 @@ const portfolio: PortfolioData = {
           image: "/images/mestaenglishdark.png",
           imagePosition: "left",
           heading: "The Platform",
-          body: "Mesta is Norway's largest road maintenance company, responsible for keeping thousands of kilometres of public roads safe year-round. For our bachelor's degree capstone project, graded A by the university panel, our team built a full-stack internal web platform designed to give Mesta's operations teams a real-time overview of their winter road maintenance work.",
+          body: "Mesta is Norway's largest road maintenance company, responsible for keeping thousands of kilometres of public roads safe year-round. For our bachelor's thesis, graded A by the university panel, our team built a full-stack internal web platform designed to give Mesta's operations teams a real-time overview of their winter road maintenance work.",
         },
         {
           image: "/images/mestasaltpunkt.png",
