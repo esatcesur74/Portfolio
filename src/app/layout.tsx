@@ -17,9 +17,21 @@ const ballet = Ballet({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name — Portfolio",
-  description:
-    "Personal portfolio of a Computer Science Student & Developer. Showcasing projects, skills, and more.",
+  title: "Siar Esat Cesur",
+  description: "IT graduate and entrepreneur based in Oslo, Norway. Building websites, brands, and digital experiences.",
+  openGraph: {
+    title: "Siar Esat Cesur",
+    description: "IT graduate and entrepreneur based in Oslo, Norway. Building websites, brands, and digital experiences.",
+    url: "https://siaresatcesur.eu",
+    siteName: "Siar Esat Cesur",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Siar Esat Cesur",
+    description: "IT graduate and entrepreneur based in Oslo, Norway. Building websites, brands, and digital experiences.",
+  },
 };
 
 export default function RootLayout({
