@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-const TEXT = "@who.am.i. im a IT graduate and entrepreneur, i am a creative developer. at the side im doing photography, marketing campaigns and other projects.";
+const TEXT = "@who.am.i. i'm an IT graduate and entrepreneur, i'm a creative developer. on the side i do photography, marketing campaigns and other projects.";
 
 const YELLOW = "#ffed29";
 const GRAY   = "rgba(255,255,255,0.18)";
