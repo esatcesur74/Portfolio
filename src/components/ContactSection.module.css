@@ -127,14 +127,39 @@
 
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  .wrapper {
+    min-height: auto;
+    gap: 36px;
+  }
+
+  .headingArea {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .phoneNum {
+    font-size: clamp(44px, 15vw, 72px);
+  }
+
   .heading {
     align-items: flex-start;
-    font-size: clamp(56px, 14vw, 100px);
+    font-size: clamp(52px, 17vw, 96px);
   }
 
   .row {
     flex-direction: column;
     align-items: flex-start;
+    gap: 18px;
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .rowRight {
     gap: 20px;
+  }
+
+  .rowMid {
+    word-break: break-all;
   }
 }

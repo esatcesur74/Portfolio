@@ -38,6 +38,7 @@ export default function CustomCursor() {
     <div
       ref={ref}
       aria-hidden
+      data-custom-cursor
       className="pointer-events-none fixed left-0 top-0 z-[200] h-4 w-4 rounded-full bg-white mix-blend-difference"
       style={{ willChange: "transform" }}
     />

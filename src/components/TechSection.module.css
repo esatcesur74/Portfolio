@@ -66,14 +66,68 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
+/* ── Tablet: two columns ─────────────────────────────────────────── */
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .category {
+    padding: 0 28px;
+  }
+
+  /* neutralize the 3-column rules at equal specificity */
+  .category:nth-child(3n + 1) {
+    padding-left: 28px;
+  }
+  .category:nth-child(3n) {
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    padding-right: 28px;
+  }
+  .category:nth-child(n + 4) {
+    margin-top: 0;
+  }
+
+  /* two-column rules (declared after — win where both match) */
+  .category:nth-child(2n + 1) {
+    padding-left: 0;
+  }
+  .category:nth-child(2n) {
+    border-right: none;
+    padding-right: 0;
+  }
+  .category:nth-child(n + 3) {
+    margin-top: 40px;
+  }
 }
 
+/* ── Mobile: single column ───────────────────────────────────────── */
 @media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .category,
+  .category:nth-child(3n + 1),
+  .category:nth-child(3n),
+  .category:nth-child(2n + 1),
+  .category:nth-child(2n) {
+    padding: 0;
+    border-right: none;
+  }
+
+  .category:nth-child(n + 3),
+  .category:nth-child(n + 4) {
+    margin-top: 0;
+  }
+
+  .category:not(:first-child) {
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .catLabel {
+    margin-bottom: 14px;
   }
 }

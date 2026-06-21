@@ -77,7 +77,7 @@
 }
 
 .section {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -255,31 +255,109 @@
   margin-top: 16px;
 }
 
-/* ── Responsive ─────────────────────────────────────────────────── */
+/* ── Tablet ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .nav {
+    width: 240px;
+    padding: 0 32px;
+  }
+
+  .navLabel {
+    font-size: 20px;
+  }
+
+  .section {
+    padding: 72px 40px;
+  }
+
+  .aboutLayout {
+    gap: 40px;
+  }
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .wrapper {
     flex-direction: column;
   }
 
+  /* Sidebar becomes a compact sticky top bar */
   .nav {
-    position: static;
+    position: sticky;
+    top: 0;
     height: auto;
     width: 100%;
     flex-direction: row;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: flex-start;
-    padding: 24px 24px;
-    gap: 8px;
+    gap: 4px;
+    padding: 14px 20px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 20;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navGroup {
+    flex-direction: row;
+    flex-shrink: 0;
   }
 
   .navItem {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+
+  .navLabel {
+    font-size: 15px;
+  }
+
+  /* Submenus don't fit a horizontal bar — galleries are swipeable instead */
+  .submenu {
+    display: none;
   }
 
   .section {
-    padding: 64px 24px;
+    min-height: auto;
+    padding: 72px 20px 84px;
+    justify-content: flex-start;
+  }
+
+  .sectionContact {
+    padding-bottom: 24px;
+  }
+
+  .aboutLayout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .aboutLeft {
+    gap: 24px;
+  }
+
+  .aboutRight {
+    height: 340px;
+  }
+
+  .sectionIntroLead {
+    font-size: clamp(18px, 5.5vw, 24px);
+  }
+
+  .sectionTitlePin {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .sectionTitle {
+    font-size: clamp(30px, 9vw, 44px);
   }
 }

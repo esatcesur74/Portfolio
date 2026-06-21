@@ -293,17 +293,29 @@
     padding: var(--spacing-20) var(--spacing-20);
   }
 
-  .navLeft .navLink,
-  .navRight .navLink:not(:last-child) {
-    display: none;
+  .navLeft {
+    gap: var(--spacing-16);
+  }
+
+  .navRight {
+    gap: var(--spacing-16);
+  }
+
+  .navLink {
+    font-size: 13px;
   }
 
   .headline {
     flex-direction: column;
     align-items: flex-start;
-    bottom: 14vh;
+    bottom: 13vh;
     padding: 0 var(--spacing-20);
-    gap: var(--spacing-8);
+    gap: var(--spacing-4);
+  }
+
+  .headline h1,
+  .typewriter {
+    font-size: clamp(34px, 9vw, 64px);
   }
 
   .headlineRight {
@@ -317,5 +329,31 @@
   .scroll {
     right: var(--spacing-20);
     bottom: var(--spacing-20);
+    padding: 12px 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blurBand {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .navLeft {
+    gap: 12px;
+  }
+
+  .navLink {
+    font-size: 12px;
+  }
+
+  .scroll span {
+    display: none;
+  }
+
+  .scroll {
+    border-radius: 50%;
+    padding: 12px;
   }
 }

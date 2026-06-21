@@ -69,10 +69,18 @@ body {
   font-family: var(--font-inter), "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Custom cursor is mouse-only — hide its element entirely on touch devices. */
+@media (hover: none), (pointer: coarse) {
+  [data-custom-cursor] {
+    display: none !important;
+  }
 }
 
 /* Hide the native cursor in favor of the custom one (mouse devices only). */

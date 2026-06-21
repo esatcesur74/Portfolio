@@ -119,7 +119,9 @@ export default function Sections() {
     rafRef.current = requestAnimationFrame(step);
   };
 
-  // Wheel → one section per gesture (gesture end detected by quiet period)
+  // Wheel → one section per gesture (gesture end detected by quiet period).
+  // Desktop/pointer only — on touch we let the browser scroll natively so the
+  // page behaves like a normal stacked layout (galleries keep their swipe handlers).
   useEffect(() => {
     let armed = true;
     let settleTimer: ReturnType<typeof setTimeout> | null = null;
@@ -142,9 +144,27 @@ export default function Sections() {
       animateTo(next);
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
+    const mq = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    let attached = false;
+
+    const sync = () => {
+      if (mq.matches && !attached) {
+        window.addEventListener("wheel", handleWheel, { passive: false });
+        attached = true;
+      } else if (!mq.matches && attached) {
+        window.removeEventListener("wheel", handleWheel);
+        attached = false;
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        animatingRef.current = false;
+      }
+    };
+
+    sync();
+    mq.addEventListener("change", sync);
+
     return () => {
-      window.removeEventListener("wheel", handleWheel);
+      mq.removeEventListener("change", sync);
+      if (attached) window.removeEventListener("wheel", handleWheel);
       if (settleTimer) clearTimeout(settleTimer);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
@@ -171,7 +191,7 @@ export default function Sections() {
     <div id="work" className={styles.wrapper}>
       {/* Left sticky nav */}
       <nav className={styles.nav}>
-        {SECTIONS.map(({ id, num, label, subItems }) => (
+        {SECTIONS.map(({ id, label, subItems }) => (
           <div key={id} className={styles.navGroup}>
             <button
               className={`${styles.navItem} ${active === id ? styles.active : ""}`}

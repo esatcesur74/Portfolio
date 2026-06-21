@@ -272,6 +272,7 @@
   justify-content: center;
   cursor: grab;
   user-select: none;
+  touch-action: pan-y;
 }
 
 .stage:active {
@@ -360,5 +361,72 @@
 
   .stage {
     height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    gap: 28px;
+  }
+
+  /* Project name flows as a heading instead of a giant absolute overlay */
+  .galleryTitle {
+    position: static;
+    text-align: left;
+    font-size: clamp(40px, 12vw, 64px);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .content {
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .info {
+    gap: 18px;
+    order: 2;
+  }
+
+  .stageWrapper {
+    order: 1;
+  }
+
+  .stage {
+    height: 280px;
+  }
+
+  .card {
+    width: 78%;
+  }
+
+  .desc {
+    max-width: none;
+  }
+
+  .descLead {
+    font-size: clamp(16px, 4.8vw, 20px);
+  }
+
+  .visitBtn {
+    cursor: pointer;
+    padding: 11px 32px;
+    font-size: 16px;
+  }
+
+  /* Tech icons drop below the content in normal flow */
+  .techFanPin {
+    position: static;
+    margin-top: 8px;
+    justify-content: flex-start;
+  }
+
+  .techFan {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .fanItem {
+    margin: 0;
   }
 }

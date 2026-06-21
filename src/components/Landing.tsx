@@ -145,7 +145,7 @@ export default function Landing() {
 
         <nav ref={navRef} className={styles.nav}>
           <div className={styles.navLeft}>
-            <a className={styles.navLink} href="#work">Projects</a>
+            <a className={styles.navLink} href="#projects">Projects</a>
             <a className={styles.navLink} href="#about">About</a>
             <a className={styles.navLink} href="#contact">Contact</a>
           </div>
