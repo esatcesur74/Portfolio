@@ -1,0 +1,364 @@
+/* ── Projects section wrapper ────────────────────────────────────── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Main content area (left info + right gallery) ───────────────── */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  flex: 1;
+}
+
+/* ── Left info panel ─────────────────────────────────────────────── */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.infoVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.infoHidden {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.desc {
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 300;
+  line-height: 1.85;
+  letter-spacing: 0em;
+  color: rgba(255, 255, 255, 0.68);
+  max-width: 440px;
+  margin: 0;
+}
+
+.descLead {
+  display: block;
+  font-size: clamp(16px, 1.4vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 14px;
+}
+
+.visitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 30px;
+  border: none;
+  border-radius: 999px;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: #fff;
+  background: #1a4fd6;
+  text-decoration: none;
+  width: fit-content;
+  transition: background 0.2s;
+  cursor: none;
+  margin-top: 6px;
+}
+
+.viewCursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  color: #000;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 5px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.visitBtn:hover {
+  background: #1540b8;
+}
+
+.confidential {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 48px;
+  border-radius: 999px;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  width: fit-content;
+  cursor: default;
+}
+
+/* ── Tech fan (uiverse-style) ────────────────────────────────────── */
+.techFan {
+  display: flex;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+.fanItem {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 52px;
+  border: none;
+  outline: none;
+  margin: -5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 300ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fanItem::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 0 #000;
+  pointer-events: none;
+  transition: 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fanItem::before {
+  position: absolute;
+  content: attr(data-label);
+  left: 50%;
+  bottom: 56px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 5px 10px;
+  background-color: #111;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
+  transform-origin: bottom center;
+  transition: all 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 200ms ease-out, visibility 200ms ease-out;
+  transform: translateX(-50%) scale(0.5) translateY(8px);
+  z-index: 100;
+}
+
+.fanItem:hover {
+  transform: scale(1.5) translateY(-5px);
+  z-index: 99999;
+}
+
+.fanItem:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1) translateY(0);
+}
+
+.fanItem:active::after {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--accent, rgba(255,255,255,0.1));
+}
+
+.fanItem:hover + .fanItem { transform: scale(1.3) translateY(-3px); z-index: 9999; }
+.fanItem:hover + .fanItem + .fanItem { transform: scale(1.15); z-index: 999; }
+.fanItem:has(+ .fanItem:hover) { transform: scale(1.3) translateY(-3px); z-index: 9999; }
+.fanItem:has(+ .fanItem + .fanItem:hover) { transform: scale(1.15); z-index: 999; }
+
+.fanIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border-radius: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fanText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent, #fff);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.techChip {
+  font-size: 12px;
+  letter-spacing: -0.01em;
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.chipBlue {
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  background: rgba(96, 165, 250, 0.06);
+}
+
+.chipYellow {
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  background: rgba(251, 191, 36, 0.06);
+}
+
+.techFanPin {
+  position: absolute;
+  right: 84px;
+  bottom: 15px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ── Right gallery ───────────────────────────────────────────────── */
+.stageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.galleryTitle {
+  position: absolute;
+  top: 80px;
+  right: 64px;
+  font-size: clamp(56px, 7vw, 120px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0;
+  color: #fff;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-align: right;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  perspective: 900px;
+  perspective-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+}
+
+.stage:active {
+  cursor: grabbing;
+}
+
+.card {
+  position: absolute;
+  width: 65%;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.1s ease;
+  will-change: transform, opacity;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.cardActive {
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Bottom section heading ──────────────────────────────────────── */
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-top: 15px;
+  margin-top: 48px;
+}
+
+.sectionNum {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  opacity: 0.4;
+}
+
+.sectionTitle {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+}
+
+/* ── Progress dots ───────────────────────────────────────────────── */
+.progress {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.progressDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.progressDotActive {
+  background: #fff;
+  transform: scale(1.4);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .stage {
+    height: 360px;
+  }
+}

@@ -1,21 +1,13 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Projects from "@/components/Projects";
-import Skills from "@/components/Skills";
-import Contact from "@/components/Contact";
+import Landing from "@/components/Landing";
+import Sections from "@/components/Sections";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-    </>
+    <main style={{ background: "var(--surface-canvas)" }}>
+      {/* Hero snap target — creates the 100vh space so sections start below */}
+      <div style={{ height: "100vh", flexShrink: 0 }} />
+      <Landing />
+      <Sections />
+    </main>
   );
 }
