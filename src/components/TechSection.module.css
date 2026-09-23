@@ -88,7 +88,7 @@
     margin-top: 0;
   }
 
-  /* two-column rules (declared after — win where both match) */
+  /* two-column rules (declared later, so they win where both match) */
   .category:nth-child(2n + 1) {
     padding-left: 0;
   }

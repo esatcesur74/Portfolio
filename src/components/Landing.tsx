@@ -25,11 +25,8 @@ function TypewriterCycle() {
   const [displayed, setDisplayed] = useState("");
   const [index, setIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [stopped, setStopped] = useState(false);
 
   useEffect(() => {
-    if (stopped) return;
-
     const target = GREETINGS[index];
 
     if (!isDeleting && displayed === target) {
@@ -47,7 +44,7 @@ function TypewriterCycle() {
     if (isDeleting && displayed === "") {
       const nextIndex = index + 1;
       if (nextIndex >= GREETINGS.length) {
-        // Cycle done — type final Norwegian and stop
+        // Cycle done. Type final Norwegian and stop.
         const t = setTimeout(() => {
           setIndex(-1); // signal final
           setIsDeleting(false);
@@ -63,10 +60,7 @@ function TypewriterCycle() {
 
     // Final Norwegian phase
     if (index === -1) {
-      if (displayed === FINAL_GREETING) {
-        setStopped(true);
-        return;
-      }
+      if (displayed === FINAL_GREETING) return;
       const t = setTimeout(() => {
         setDisplayed(FINAL_GREETING.slice(0, displayed.length + 1));
       }, TYPE_SPEED);
@@ -81,7 +75,7 @@ function TypewriterCycle() {
     }, isDeleting ? DELETE_SPEED : TYPE_SPEED);
 
     return () => clearTimeout(t);
-  }, [displayed, index, isDeleting, stopped]);
+  }, [displayed, index, isDeleting]);
 
   return (
     <h1 className={styles.typewriter}>

@@ -33,7 +33,10 @@ const Gallery3D = forwardRef<Gallery3DHandle, { onSlideChange?: (index: number) 
     const wheelTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isAnimating = useRef(false);
     const currentRef = useRef(current);
-    currentRef.current = current;
+
+    useEffect(() => {
+      currentRef.current = current;
+    }, [current]);
 
     const prev = () => setCurrent((c) => (c - 1 + IMAGES.length) % IMAGES.length);
     const next = () => setCurrent((c) => (c + 1) % IMAGES.length);
@@ -47,7 +50,7 @@ const Gallery3D = forwardRef<Gallery3DHandle, { onSlideChange?: (index: number) 
         const atEnd = currentRef.current === IMAGES.length - 1 && goingDown;
         const atStart = currentRef.current === 0 && !goingDown;
 
-        // At boundary — let the event propagate so page snap can fire
+        // At boundary, let the event propagate so page snap can fire.
         if (atEnd || atStart) {
           wheelAccum.current = 0;
           return;

@@ -2,28 +2,6 @@
 
 import styles from "./TechSection.module.css";
 
-const ICON_MAP: Record<string, string> = {
-  "React": "react",
-  "Next.js": "nextjs",
-  "TypeScript": "ts",
-  "Tailwind CSS": "tailwind",
-  "Vite": "vite",
-  "HTML5 / CSS3": "html",
-  "Three.js": "threejs",
-  "FastAPI": "fastapi",
-  "ASP.NET Core": "dotnet",
-  "Python": "py",
-  "Node.js": "nodejs",
-  "PostgreSQL": "postgres",
-  "SQLite": "sqlite",
-  "React Native": "react",
-  "Figma": "figma",
-  "Git / GitHub": "git",
-  "Cloudflare Pages": "cloudflare",
-  "GSAP": "js",
-  "Framer Motion": "framer",
-};
-
 const CATEGORIES = [
   {
     label: "Frontend",

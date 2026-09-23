@@ -1,33 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-inter",
-});
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Esat Cesur",
-  description: "Portfolio of Esat Cesur — design, development, and creative direction.",
-  icons: {
-    icon: "/images/realisticsiyah3.png",
-  },
+  title: "Esat Cesur | Frontend-Heavy Fullstack Developer",
+  description: "The portfolio and selected work of Esat Cesur, a frontend developer and designer based in Oslo.",
+  icons: { icon: "/images/realisticsiyah3.png" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body>
         <CustomCursor />
-        <SmoothScroll>{children}</SmoothScroll>
+        {children}
       </body>
     </html>
   );

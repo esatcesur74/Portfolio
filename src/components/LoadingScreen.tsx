@@ -5,7 +5,7 @@ import Matter from "matter-js";
 
 /**
  * Loading screen: balls drop from the top and pile up under gravity until
- * the screen is full (100%). Every ball is recolored by its position — balls
+ * the screen is full (100%). Every ball is recolored by its position; balls
  * that come to rest inside the "CESUR" region turn black, the rest stay white.
  * So the surname is literally formed by the piled balls, then it fades out.
  */

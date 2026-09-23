@@ -141,8 +141,6 @@ const ProjectsSection = forwardRef<ProjectsSectionHandle, {
   const [activeProject, setActiveProject] = useState(0);
   const [activeImage, setActiveImage] = useState(0);
   const [textVisible, setTextVisible] = useState(true);
-  const [scrollDir, setScrollDir] = useState<"down" | "up">("down");
-
   const wrapperRef = useRef<HTMLDivElement>(null);
   const galleryColRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -218,7 +216,7 @@ const ProjectsSection = forwardRef<ProjectsSectionHandle, {
       const atEnd = globalIndex.current >= totalImages - 1 && goingDown;
       const atStart = globalIndex.current <= 0 && !goingDown;
 
-      // At boundary — release so page snap can fire
+      // At boundary, release so page snap can fire.
       if (atEnd || atStart) {
         wheelAccum.current = 0;
         return;
@@ -260,7 +258,7 @@ const ProjectsSection = forwardRef<ProjectsSectionHandle, {
 
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
-      {/* Project title — absolute top-right of section */}
+      {/* Project title, absolute top-right of section */}
       <h2 className={`${styles.galleryTitle} ${textVisible ? styles.infoVisible : styles.infoHidden}`}>
         {project.title.toUpperCase()}
       </h2>
@@ -299,7 +297,7 @@ const ProjectsSection = forwardRef<ProjectsSectionHandle, {
           )}
         </div>
 
-        {/* Right: gallery — wheel here cycles projects, not sections */}
+        {/* Right: gallery. Wheel here cycles projects, not sections. */}
         <div ref={galleryColRef} className={styles.stageWrapper}>
           <div
             ref={stageRef}

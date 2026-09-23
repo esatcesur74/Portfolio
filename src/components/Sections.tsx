@@ -94,7 +94,7 @@ export default function Sections() {
     return el ? el.getBoundingClientRect().top + window.scrollY : 0;
   };
 
-  // Own tween — we know exactly when it starts and ends, no 3rd-party guesswork
+  // Own tween: we know exactly when it starts and ends, no 3rd-party guesswork
   const animateTo = (idx: number, duration = 750) => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     const start = window.scrollY;
@@ -120,7 +120,7 @@ export default function Sections() {
   };
 
   // Wheel → one section per gesture (gesture end detected by quiet period).
-  // Desktop/pointer only — on touch we let the browser scroll natively so the
+  // Desktop/pointer only. On touch we let the browser scroll natively so the
   // page behaves like a normal stacked layout (galleries keep their swipe handlers).
   useEffect(() => {
     let armed = true;

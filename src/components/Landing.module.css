@@ -1,4 +1,4 @@
-/* ── Lightship-style hero landing — plain (scoped) CSS ───────────── */
+/* Lightship-style hero landing, plain scoped CSS */
 
 .heroWrapper {
   position: fixed;
@@ -19,7 +19,7 @@
   color: var(--color-pure-white);
 }
 
-/* Full-bleed portrait — cropped so only cap + eyes show */
+/* Full-bleed portrait, cropped so only cap and eyes show */
 .bg {
   position: absolute;
   top: 0;
@@ -63,7 +63,7 @@
   opacity: 0;
 }
 
-/* The blurred duplicate — shares .bg positioning so it aligns with the sharp one */
+/* The blurred duplicate shares .bg positioning so it aligns with the sharp one */
 .blurImg {
   filter: blur(16px);
 }
