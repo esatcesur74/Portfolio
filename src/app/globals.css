@@ -164,6 +164,7 @@ html::-webkit-scrollbar {
 }
 
 .featured-project,
+.independent-work,
 .academic-lab,
 .ekip-case {
   margin-top: 12rem;
@@ -370,6 +371,265 @@ html::-webkit-scrollbar {
   letter-spacing: 0.05em;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.independent-work {
+  border-top: 1px solid #111;
+  padding-top: 1.2rem;
+}
+
+.independent-heading {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+  gap: 4rem;
+}
+
+.independent-heading h2 {
+  max-width: 940px;
+  margin: 0;
+  font-size: clamp(3rem, 6vw, 7rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.075em;
+}
+
+.independent-heading > div > p {
+  width: min(560px, 100%);
+  margin: 2.5rem 0 0 auto;
+  font-size: clamp(1.05rem, 1.45vw, 1.4rem);
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+
+.independent-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 6rem;
+}
+
+.independent-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+}
+
+.concept-card {
+  grid-row: 1 / 3;
+  flex-direction: column;
+  background: #781d18;
+  color: #fff7e9;
+}
+
+.motion-card,
+.scout-card {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+}
+
+.motion-card {
+  background: #050505;
+  color: #fff;
+}
+
+.scout-card {
+  background: #1a4fd6;
+  color: #fff;
+}
+
+.independent-media,
+.scout-preview {
+  position: relative;
+  min-height: 270px;
+  overflow: hidden;
+}
+
+.concept-media {
+  min-height: 550px;
+}
+
+.independent-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.concept-media img {
+  object-position: center 58%;
+}
+
+.motion-media img {
+  object-position: 42% center;
+}
+
+.independent-card:hover .independent-media img {
+  transform: scale(1.035);
+}
+
+.independent-index,
+.independent-state {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.independent-index {
+  left: 1rem;
+}
+
+.independent-state {
+  right: 1rem;
+}
+
+.independent-copy {
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem;
+}
+
+.independent-copy > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.independent-copy i {
+  font-size: 1rem;
+  font-style: normal;
+}
+
+.independent-copy h3 {
+  margin: auto 0 1rem;
+  padding-top: 3.5rem;
+  font-size: clamp(2.1rem, 4vw, 4.8rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+.motion-card .independent-copy h3,
+.scout-card .independent-copy h3 {
+  font-size: clamp(1.8rem, 2.8vw, 3.4rem);
+}
+
+.independent-copy p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.independent-copy small {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.scout-preview {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: #eef3ff;
+  color: #10245d;
+}
+
+.scout-preview-head,
+.scout-formula {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.scout-preview-head {
+  align-items: flex-start;
+  line-height: 1.3;
+}
+
+.scout-preview-head span:first-child {
+  min-width: 0;
+}
+
+.scout-preview-head span:last-child {
+  flex: 0 0 auto;
+  max-width: 5.5rem;
+  text-align: right;
+}
+
+.scout-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 3rem;
+}
+
+.scout-metrics > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border: 1px solid rgba(16, 36, 93, 0.18);
+  border-radius: 0.45rem;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.scout-metrics strong {
+  font-size: clamp(1.4rem, 2.4vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.scout-metrics span {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+}
+
+.scout-bars {
+  display: flex;
+  align-items: end;
+  gap: 0.35rem;
+  height: 55px;
+  margin: auto 0 0;
+}
+
+.scout-bars span {
+  flex: 1;
+  height: 38%;
+  border-radius: 0.2rem 0.2rem 0 0;
+  background: #1a4fd6;
+}
+
+.scout-bars span:nth-child(2) { height: 72%; }
+.scout-bars span:nth-child(3) { height: 55%; }
+.scout-bars span:nth-child(4) { height: 88%; }
+.scout-bars span:nth-child(5) { height: 64%; }
+
+.scout-formula {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border-top: 1px solid rgba(16, 36, 93, 0.18);
+  padding-top: 0.55rem;
 }
 
 .academic-lab {
@@ -1135,6 +1395,19 @@ body {
     gap: 2rem;
   }
 
+  .independent-heading {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .independent-heading > div > p {
+    margin-left: 0;
+  }
+
+  .independent-grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  }
+
   .academic-summary {
     margin-left: 0;
   }
@@ -1253,6 +1526,7 @@ body {
   }
 
   .featured-project,
+  .independent-work,
   .academic-lab,
   .ekip-case {
     margin-top: 7rem;
@@ -1311,6 +1585,51 @@ body {
 
   .liva-media {
     gap: 3rem;
+  }
+
+  .independent-heading {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .independent-heading h2 {
+    font-size: clamp(2.8rem, 13vw, 4.4rem);
+  }
+
+  .independent-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 1rem;
+    margin-top: 4rem;
+  }
+
+  .concept-card {
+    grid-row: auto;
+  }
+
+  .concept-card .independent-media {
+    min-height: 430px;
+  }
+
+  .motion-card,
+  .scout-card {
+    grid-template-columns: 1fr;
+  }
+
+  .motion-card .independent-media,
+  .scout-card .scout-preview {
+    min-height: 300px;
+  }
+
+  .independent-copy {
+    min-height: 270px;
+    padding: 1.5rem;
+  }
+
+  .independent-copy h3,
+  .motion-card .independent-copy h3,
+  .scout-card .independent-copy h3 {
+    font-size: clamp(2rem, 11vw, 3.25rem);
   }
 
   .academic-lab-heading {

@@ -35,8 +35,9 @@ export default function Home() {
             <a href="#mesta"><span>01</span><strong>Mesta</strong><small>Bachelor · Product</small><i>2025</i></a>
             <a href="#ai-trainer"><span>02</span><strong>AI Trainer</strong><small>AI · Startup</small><i>2025–Now</i></a>
             <a href="#liva-food"><span>03</span><strong>Liva Food</strong><small>Web · Client</small><i>2024</i></a>
-            <a href="#academic-lab"><span>04</span><strong>Academic Lab</strong><small>School projects</small><i>2022–2025</i></a>
-            <a href="#ekip"><span>05</span><strong>Ekip</strong><small>Brand · Direction</small><i>2022–Now</i></a>
+            <a href="#independent-work"><span>04</span><strong>Independent Work</strong><small>Design · Motion · Data</small><i>Ongoing</i></a>
+            <a href="#academic-lab"><span>05</span><strong>Academic Lab</strong><small>School projects</small><i>2022–2025</i></a>
+            <a href="#ekip"><span>06</span><strong>Ekip</strong><small>Brand · Direction</small><i>2022–Now</i></a>
           </nav>
 
           <section className="featured-project" id="mesta">
@@ -112,9 +113,87 @@ export default function Home() {
             </div>
           </section>
 
+          <section className="independent-work" id="independent-work">
+            <div className="independent-heading">
+              <p className="case-kicker">04 · Independent work</p>
+              <div>
+                <h2>Self-directed projects built to explore an idea properly.</h2>
+                <p>Visual concepts, interaction studies and data products where I set the brief, design the system and build the result.</p>
+              </div>
+            </div>
+
+            <div className="independent-grid">
+              <a
+                className="independent-card concept-card project-link"
+                data-cursor-label="Visit concept"
+                href="https://esatcesur74.github.io/Concept-Restaurant/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className="independent-media concept-media">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/conceptrestaurant.png" alt="Liva Concept restaurant website preview" />
+                  <span className="independent-index">01</span>
+                  <span className="independent-state">Live concept</span>
+                </div>
+                <div className="independent-copy">
+                  <div><span>Brand concept · Frontend</span><i>↗</i></div>
+                  <h3>Liva Concept</h3>
+                  <p>A fictional Middle Eastern street-food identity built from scratch around oversized typography, bold color, responsive layouts and playful interaction.</p>
+                  <small>HTML · CSS · JavaScript · Responsive design</small>
+                </div>
+              </a>
+
+              <a
+                className="independent-card motion-card project-link"
+                data-cursor-label="Open gallery"
+                href="https://esatcesur74.github.io/gsap_training/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className="independent-media motion-media">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/floatinggalleryfirstpage.png" alt="Motion Gallery interactive landing page" />
+                  <span className="independent-index">02</span>
+                  <span className="independent-state">Live experiment</span>
+                </div>
+                <div className="independent-copy">
+                  <div><span>Creative development · Motion</span><i>↗</i></div>
+                  <h3>Motion Gallery</h3>
+                  <p>An interaction playground for floating imagery, depth, parallax and horizontal storytelling.</p>
+                  <small>React · GSAP · Three.js · Lenis</small>
+                </div>
+              </a>
+
+              <a
+                className="independent-card scout-card project-link"
+                data-cursor-label="View on GitHub"
+                href="https://github.com/esatcesur74/scout"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className="scout-preview" aria-hidden="true">
+                  <div className="scout-preview-head"><span>03 · eScout / system fit</span><span>Work in progress</span></div>
+                  <div className="scout-metrics">
+                    <div><strong>230</strong><span>Centre-backs</span></div>
+                    <div><strong>462</strong><span>System scores</span></div>
+                  </div>
+                  <div className="scout-bars"><span /><span /><span /><span /><span /></div>
+                  <div className="scout-formula"><span>Similarity</span><b>50%</b><span>Rules</span><b>40%</b><span>Reliability</span><b>10%</b></div>
+                </div>
+                <div className="independent-copy">
+                  <div><span>Data science · Product</span><i>↗</i></div>
+                  <h3>eScout</h3>
+                  <p>A football recruitment database that ranks centre-backs by tactical-system fit with auditable league-relative scoring.</p>
+                  <small>Python · pandas · SQLite · Streamlit</small>
+                </div>
+              </a>
+            </div>
+          </section>
+
           <section className="academic-lab" id="academic-lab">
             <div className="academic-lab-heading">
-              <p className="case-kicker">04 · Academic lab</p>
+              <p className="case-kicker">05 · Academic lab</p>
               <h2>Engineering foundations, applied through real projects.</h2>
             </div>
             <p className="academic-summary">The most relevant skills from my Bachelor&apos;s degree in Information Technology at OsloMet, connecting product decisions with the engineering underneath.</p>
@@ -149,7 +228,7 @@ export default function Home() {
           <section className="ekip-case" id="ekip">
           <header className="case-intro">
             <div className="ekip-case-label">
-              <p className="case-kicker">05 · Brand &amp; creative direction</p>
+              <p className="case-kicker">06 · Brand &amp; creative direction</p>
               <a className="ekip-case-logo project-link" data-cursor-label="Visit Ekip" href="https://ekipeu.com/" target="_blank" rel="noreferrer">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/images/EKIPLOGOS.svg" alt="Ekip" />
